@@ -10,12 +10,9 @@ Gem::Specification.new do |s|
   s.authors = ["Michael Bleigh"]
   s.files = [ "MIT-LICENSE",
               "README",
-              "lib",
-              "lib/uberkit",
               "lib/uberkit/displayer.rb",
               "lib/uberkit/menu.rb",
               "lib/uberkit.rb",
-              "rails",
               "rails/init.rb" ]
   #s.rdoc_options = ["--main", "README.txt"]
   #s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
