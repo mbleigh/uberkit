@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = "uberkit"
   s.version = "0.0.1"
   s.date = "2008-07-07"
-  s.summary = "A Rails plugin set of UI tools and helpers for common problems."
+  s.summary = "A Rails plugin for a common set of UI tools and helpers for building interfaces."
   s.email = "michael@intridea.com"
   s.homepage = "http://www.actsascommunity.com/projects/uberkit"
   s.description = "UberKit is a set of tools for common UI problems in Rails including menus."
