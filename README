@@ -1,0 +1,77 @@
+Uberkit
+=======
+
+The Uberkit is a set of helpers to ease the development of common UI
+practices.
+
+Installation
+------------
+
+Uberkit is available both as a gem and as a traditional plugin. To use
+it as a gem, add this to your environment.rb:
+
+  config.gem 'mbleigh-uberkit', :lib => 'uberkit', :source => 'http://gems.github.com/'
+  
+To install it as a plugin (Rails 2.1 or later):
+
+  script/plugin install git://github.com/mbleigh/uberkit.git
+  
+UberMenu
+--------
+
+UberMenu is the simplest way to generate the markup for CSS menus,
+including state representation and special hooks for cross-browser
+advanced CSS needs.
+
+=== Basic Example
+
+<% ubermenu do |m| %>
+  <% m.action 'Home', '/' %>
+  <% m.action 'Users', users_path %>
+  <% m.action 'Log Out', logout_path, :class => "special" %>
+<% end %>
+
+Becomes...
+
+<ul>
+  <li class="first current first_current"><a href="/">Home</a></li>
+  <li><a href="/users">Users</a></li>
+  <li class="special last"><a href="/logout">Log Out</a></li>
+</ul>
+
+=== Submenus
+
+You can nest ubermenus for subnavigation using the 'submenu' method.
+If you pass :delegate instead of a url to the submenu option, it will
+automatically pick up the url of the first action in the submenu instead.
+
+<% ubermenu 'nav' do |m| %>
+  <% m.action 'Home', home_path %>
+  <% m.submenu 'Services', services_home_path do |s| %>
+    <% s.action 'Service A', service_path('a') %>
+    <% s.action 'Service B', service_path('b') %>
+  <% end %>
+<% end %>
+
+=== State
+
+UberMenus automatically retain state using the current_page? helper.
+You can specify further by passing a :current boolean expression to 
+evaluate whether or not the menu item is selected:
+
+<% ubermenu 'nav' do |m| %>
+  <% m.action 'Users', users_path, :current => controller.controller_name == 'users' %>
+<% end %>
+
+=== Method Listing
+
+* action - like link_to with additional options (see below)
+    :current - a boolean expression to determine whether this menu option is selected,
+        works with current_page? (if current_page? is true this will be true regardless)
+    :force_current - boolean expression that ignores the current_page?
+    :disabled - adds 'disabled' to class and forces non-current
+* remote_action - like link_to_remote
+* custom_action - only builds the outer <li>, accepts block for contents
+* submenu - accepts a block yielding a new menu object
+
+Copyright (c) 2008 Michael Bleigh and Intridea, Inc., released under the MIT license
