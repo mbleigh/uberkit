@@ -49,5 +49,13 @@ class Uberkit::Forms::Builder < ActionView::Helpers::FormBuilder
     concat("</fieldset>",block.binding)
   end
   
+  def output_buffer
+    @template.output_buffer
+  end
+  
+  def output_buffer=(buf)
+    @template.output_buffer = buf
+  end
+  
   def is_haml?; false end
 end

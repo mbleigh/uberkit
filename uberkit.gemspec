@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "uberkit"
-  s.version = "0.0.2"
+  s.version = "0.0.3"
   s.date = "2008-07-14"
   s.summary = "A Rails plugin for a common set of UI tools and helpers for building interfaces."
   s.email = "michael@intridea.com"
@@ -12,6 +12,9 @@ Gem::Specification.new do |s|
               "README",
               "lib/uberkit/displayer.rb",
               "lib/uberkit/menu.rb",
+              "lib/uberkit/form.rb",
+              "lib/uberkit/forms/builder.rb",
+              "lib/uberkit/forms/helper.rb",
               "lib/uberkit.rb",
               "rails/init.rb" ]
   #s.rdoc_options = ["--main", "README.txt"]
