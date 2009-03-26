@@ -4,7 +4,7 @@ class Uberkit::Forms::Builder < ActionView::Helpers::FormBuilder
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
   
-  helpers = field_helpers + %w(date_select datetime_select time_select select html_area state_select country_select) - %w(hidden_field label fields_for) 
+  helpers = field_helpers + %w(date_select datetime_select time_select select html_area state_select country_select check_box) - %w(hidden_field label fields_for) 
   
   helpers.each do |name|
     define_method(name) do |field, *args|
@@ -28,6 +28,21 @@ class Uberkit::Forms::Builder < ActionView::Helpers::FormBuilder
       ret
     end
   end
+
+  def check_box(field, options = {}, checked_value = "1", unchecked_value = "0")
+    label_text = options.delete(:label) || field.to_s.titleize
+    help = options.delete(:help)
+    description = options.delete(:description)
+
+    content_tag(:div, :class => "check_box_row#{' require' if options.delete(:required)}#{' labelless' if label_text.blank?}") do
+      ret = super(field, options, checked_value, unchecked_value)
+      ret << label(field, label_text)
+      ret << content_tag(:span, help, :class => 'help') unless help.blank?
+      ret << content_tag(:span, description, :class => 'description') unless description.blank?
+      ret << "<br/>"
+      ret
+    end
+  end
   
   def submit(text)
     content_tag(:button, text, :type => "submit")
@@ -44,9 +59,9 @@ class Uberkit::Forms::Builder < ActionView::Helpers::FormBuilder
   end
   
   def fieldset(legend=nil,&block)
-    concat("<fieldset>#{"<legend>#{legend}</legend>" if legend}",block.binding)
+    concat("<fieldset>#{"<legend>#{legend}</legend>" if legend}")
     yield
-    concat("</fieldset>",block.binding)
+    concat("</fieldset>")
   end
   
   def output_buffer
