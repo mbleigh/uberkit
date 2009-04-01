@@ -29,19 +29,40 @@ class Uberkit::Forms::Builder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def check_box(field, options = {}, checked_value = "1", unchecked_value = "0")
+  def reverse_field(label_text, field, content, options = {})
+    content_tag(:div, :class => "reverse_field#{' required' if options[:required]}#{' labelless' if options[:title].blank?}") do
+      result = ""
+      unless options[:title].blank?
+        result << content_tag(:span, options[:title], :class => "pseudo_label")
+      end
+      result << content_tag(:div, :class => "pseudo_field") do
+        ret = content
+        ret << label(field, label_text)
+        ret << content_tag(:span, options[:help], :class => 'help') unless options[:help].blank?
+        ret << content_tag(:span, options[:description], :class => 'description') unless options[:description].blank?
+        ret << "<br/>"
+        ret
+      end
+      result
+    end
+  end
+
+  def check_box(field, options = {}, *args)
     label_text = options.delete(:label) || field.to_s.titleize
     help = options.delete(:help)
+    required = options.delete(:required)
     description = options.delete(:description)
+    title = options.delete(:title)
+    reverse_field(label_text, field, super(field, options, *args), {:required => required, :help => help, :description => description, :title => title})
+  end
 
-    content_tag(:div, :class => "check_box_row#{' require' if options.delete(:required)}#{' labelless' if label_text.blank?}") do
-      ret = super(field, options, checked_value, unchecked_value)
-      ret << label(field, label_text)
-      ret << content_tag(:span, help, :class => 'help') unless help.blank?
-      ret << content_tag(:span, description, :class => 'description') unless description.blank?
-      ret << "<br/>"
-      ret
-    end
+  def radio_button(field, tag_value, options = {})
+    label_text = options.delete(:label) || tag_value.to_s.titleize
+    help = options.delete(:help)
+    required = options.delete(:required)
+    description = options.delete(:description)
+    title = options.delete(:title)
+    reverse_field(label_text, field, super(field, tag_value, options), {:required => required, :help => help, :description => description, :title => title} )
   end
   
   def submit(text)
