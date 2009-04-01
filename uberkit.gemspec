@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{uberkit}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Bleigh"]
-  s.date = %q{2009-03-26}
+  s.date = %q{2009-04-01}
   s.description = %q{UberKit is a set of tools for common UI problems in Rails including menus and forms.}
   s.email = %q{michael@intridea.com}
   s.extra_rdoc_files = ["README"]
