@@ -60,7 +60,7 @@ module Uberkit
 
         if subnav.actions.any?
           if options == :delegate
-            @actions << [@template.link_to(name, subnav.actions.first[1][:url]) + subnav.to_html, {:current => subnav.any_current?, :url => subnav.actions.first[1][:url]}, {:class => 'submenu'}.merge(options)]
+            @actions << [@template.link_to(name, subnav.actions.first[1][:url]) + subnav.to_html, {:current => subnav.any_current?, :url => subnav.actions.first[1][:url]}, {:class => 'submenu'}]
           else
             @actions << [@template.link_to(name,options,html_options) + subnav.to_html, {:current => subnav.any_current?, :url => options}, {:class => 'submenu'}.merge(options)] if subnav.actions.any?
           end
