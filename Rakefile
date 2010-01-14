@@ -9,6 +9,7 @@ begin
     s.authors = ["Michael Bleigh"]
     s.files =  FileList["[A-Z]*", "{lib,rails}/**/*"]
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
