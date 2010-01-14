@@ -3,7 +3,7 @@ module Uberkit
     def ubermenu(options = {}, &block)
       nav = NavigationMenu.new(self,options)
       yield nav
-      concat(nav.to_html, block.binding) if nav.actions.any?
+      concat(nav.to_html) if nav.actions.any?
     end
 
     class NavigationMenu < Uberkit::Displayer
@@ -22,7 +22,8 @@ module Uberkit
         classes << "current" if merits_current?(contents,options,url_for_options)
         classes << "disabled" if options.delete(:disabled)    
         classes << classes.join("_") if classes.size > 1
-        content_tag(:li, contents, :class => classes.join(" "))
+        classes << options[:html].delete(:class)
+        content_tag(:li, contents, options[:html].merge(:class => classes.join(" ")))
       end
 
       def merits_current?(contents,options={},url_for_options={})
@@ -35,7 +36,13 @@ module Uberkit
       end
 
       def action(name, options = {}, html_options = {})
-        wrapper_options = { :current => html_options.delete(:current), :disabled => html_options.delete(:disabled), :force_current => html_options.delete(:force_current), :url => options }
+        wrapper_options = { 
+          :current => html_options.delete(:current), 
+          :disabled => html_options.delete(:disabled), 
+          :force_current => html_options.delete(:force_current), 
+          :url => options,
+          :html => html_options.delete(:html)
+        }
         @actions << [@template.link_to(name,options,html_options), wrapper_options, options]
       end
 
