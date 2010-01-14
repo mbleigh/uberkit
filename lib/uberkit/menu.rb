@@ -22,7 +22,7 @@ module Uberkit
         classes << "current" if merits_current?(contents,options,url_for_options)
         classes << "disabled" if options.delete(:disabled)    
         classes << classes.join("_") if classes.size > 1
-        classes << options[:html].delete(:class)
+        classes << options[:html].delete(:class) if options[:html]
         content_tag(:li, contents, options[:html].merge(:class => classes.join(" ")))
       end
 
